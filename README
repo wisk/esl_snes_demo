@@ -1,0 +1,7 @@
+Reference: wiki.superfamicom.org
+
+Compiler: wla dx (wladx.sf.net)
+  Warning, you must compiled this assembler with -DW65816 and nothing else.
+
+Image tools: sixpack (http://jiggawatt.org/badc0de/sixpack/)
+  ./sixpack -image -opt -v -target snes -chain -width 256 -height 224 -sizefilter 1 -format p8 <img>
