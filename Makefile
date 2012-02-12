@@ -1,4 +1,4 @@
-AS = wla-huc6280
+AS = wla-65816
 ASFLAGS = -oxi
 LD = wlalink
 LDFLAGS = -vSi
@@ -21,6 +21,8 @@ $(TARGET): $(OFILES)
 
 clean:
 	rm -f ${OFILES} ${TARGET} *.lst *.sym
+
+# sixpack -width 256 -height 200 -q 4 -image -opt -v -target snes -o esl_logo esl_logo.bmp
 
 .PHONY: clean
 .SUFFIXES: .asm

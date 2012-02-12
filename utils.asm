@@ -1,4 +1,4 @@
-  .macro DmaCopy ARGS SrcPtr, DstPtr, Size
+.macro DmaCopy ARGS SrcPtr, DstPtr, Size
 
   ; Set source
   ldx #\1
@@ -22,5 +22,23 @@
   lda #$01
   sta DMAP0
   sta MDMAEN
+
+.endm
+
+.macro CpuCopy ARGS SrcPtr, DstPtr, Size
+
+  php
+
+  rep #$10
+  sep #$20
+
+  ldx #$0000
+- lda.w \1, x
+  sta.w \2, x
+  inx
+  cpx #\3
+  bne -
+
+  plp
 
 .endm

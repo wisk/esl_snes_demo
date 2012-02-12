@@ -11,27 +11,35 @@
 .org 0
 .section "MainCode"
 
+VblankHandler:
+  rti
+
 Start:
   SnesInit
 
-  ; Copy palette
-  DmaCopy EslLogoPalBeg, CGADD, EslLogoPalEnd - EslLogoPalBeg
+  rep #$10      ; 16-bit x,y
+  sep #$20      ; 8-bit a
+
+  ; Copy palette using the CPU
+  ldx #$0000
+pal_cpy:
+  lda.w EslLogoPalBeg, x
+  sta CGDATA
+  inx
+  cpx #$200
+  bne pal_cpy
+
 
   ; Copy pattern
-  DmaCopy EslLogoPatBeg, $0000, EslLogoPatEnd - EslLogoPatBeg
+  vramLoadData EslLogoPatBeg, $1000, EslLogoPatEnd - EslLogoPatBeg
 
   ; Copy map
-  ;DmaCopy EslLogoMapBeg, , EslLogoMapEnd - EslLogoMapBeg
+  vramLoadData EslLogoMapBeg, $400, EslLogoMapEnd - EslLogoMapBeg
 
-      lda #$80
-          sta $2115
-              ldx #$0400
-                  stx $2116
-                      lda #$01
-                          sta $2118
-
-  jsr SetupVideo
+  jsr bgSetup
 
 loop: jmp loop
 
 .ends
+
+.emptyfill $00

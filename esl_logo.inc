@@ -1,5 +1,5 @@
 EslLogoPatBeg:
-  .incbin "img/esl_logo.pat"
+  .incbin "img/esl_logo"
 EslLogoPatEnd:
 
 EslLogoPalBeg:
