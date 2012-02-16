@@ -2,7 +2,7 @@ bgSetup:
   php
 
   lda #$2     ;
-  sta BGMODE  ; Set video mode 2
+  sta BGMODE  ; Set video mode 3
 
   lda #$04    ;
   sta BG1SC   ; bg1 map address to 0x400
