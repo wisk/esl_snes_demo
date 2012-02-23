@@ -43,6 +43,7 @@ $(TARGET): $(PATFILES) $(PALFILES) $(NAMFILES) $(OFILES)
 	@echo ${OFILES} >> link.txt
 	$(LD) $(LDFLAGS) link.txt $(TARGET)
 	@rm -f link.txt
+	@cp $(TARGET) rom.sfc/$(TARGET)
 
 clean:
 	rm -f ${OFILES} ${TARGET} ${PATFILES} ${PALFILES} ${NAMFILES} *.lst *.sym
