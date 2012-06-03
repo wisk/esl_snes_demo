@@ -17,6 +17,37 @@
 VblankHandler:
   php
 
+  sep #$10
+
+  lda hdmaWaveEffectOffset
+  ina
+
+  cmp #$e0
+  bcc store_wave_offset
+
+  lda #$00
+  pha
+  lda hdmaWaveType
+  cmp #$02
+  bne set_horiz_wave
+
+  lda #$04
+  sta hdmaWaveType
+  pla
+  bra store_wave_offset
+
+set_horiz_wave:
+  lda #$02
+  sta hdmaWaveType
+  pla
+
+store_wave_offset:
+  sta hdmaWaveEffectOffset
+
+  rep #$10
+
+  jsr hdmaUpdateWaveEffect
+
   rep #$10      ; 16-bit x,y
   sep #$20      ; 8-bit a
 
@@ -56,7 +87,7 @@ update_mosaic:
   asl a
   and #$f0
   ora #$0f
-  sta MOSAIC
+  ;sta MOSAIC
 
 skip_mosaic:
 
@@ -94,8 +125,10 @@ pal_cpy:
 
   jsr bgSetup
 
+  jsr hdmaSetupWaveEffect
+
 loop:
-  wai
+  ;wai
   jmp loop
 
 .ends
