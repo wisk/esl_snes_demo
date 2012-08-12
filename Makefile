@@ -46,4 +46,7 @@ $(TARGET): $(PATFILES) $(PALFILES) $(NAMFILES) $(OFILES)
 	@mv esl-demo.sym esl-demo.symb
 
 clean:
-	rm -f ${OFILES} ${TARGET} ${PATFILES} ${PALFILES} ${NAMFILES} *.lst *.sym
+	rm -f ${OFILES} ${PATFILES} ${PALFILES} ${NAMFILES} *.lst *.sym
+
+fclean: clean
+	rm -f ${TARGET}
